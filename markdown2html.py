@@ -51,22 +51,39 @@ def convert_markdown_to_html(markdown_file, output_file):
             lines = md_file.readlines()
         
         html_lines = []
+        i = 0
         
-        for line in lines:
-            line = line.rstrip('\n')
+        while i < len(lines):
+            line = lines[i].rstrip('\n')
             
             # Skip empty lines
             if not line.strip():
+                i += 1
                 continue
             
             # Process heading lines
             if line.startswith('#'):
                 html_line = convert_heading(line)
                 html_lines.append(html_line)
+                i += 1
+            # Process unordered list items
+            elif line.startswith('- '):
+                # Start of an unordered list
+                html_lines.append('<ul>')
+                
+                # Process all consecutive list items
+                while i < len(lines) and lines[i].rstrip('\n').startswith('- '):
+                    list_item = lines[i].rstrip('\n')[2:].strip()  # Remove '- ' and strip
+                    html_lines.append(f'<li>{list_item}</li>')
+                    i += 1
+                
+                # Close the unordered list
+                html_lines.append('</ul>')
             else:
-                # For now, just keep non-heading lines as is
+                # For now, just keep non-heading, non-list lines as is
                 # This can be expanded later for other markdown syntax
                 html_lines.append(line)
+                i += 1
         
         # Write HTML content to output file
         with open(output_file, 'w', encoding='utf-8') as html_file:
