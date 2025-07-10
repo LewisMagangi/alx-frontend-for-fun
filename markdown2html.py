@@ -8,6 +8,7 @@ It validates command line arguments and checks file existence before processing.
 
 import sys
 import os
+import re
 
 
 def main():
@@ -74,6 +75,7 @@ def convert_markdown_to_html(markdown_file, output_file):
                 # Process all consecutive list items
                 while i < len(lines) and lines[i].rstrip('\n').startswith('- '):
                     list_item = lines[i].rstrip('\n')[2:].strip()  # Remove '- ' and strip
+                    list_item = convert_bold_emphasis(list_item)  # Apply bold/emphasis formatting
                     html_lines.append(f'<li>{list_item}</li>')
                     i += 1
                 
@@ -87,6 +89,7 @@ def convert_markdown_to_html(markdown_file, output_file):
                 # Process all consecutive list items
                 while i < len(lines) and lines[i].rstrip('\n').startswith('* '):
                     list_item = lines[i].rstrip('\n')[2:].strip()  # Remove '* ' and strip
+                    list_item = convert_bold_emphasis(list_item)  # Apply bold/emphasis formatting
                     html_lines.append(f'<li>{list_item}</li>')
                     i += 1
                 
@@ -113,6 +116,7 @@ def convert_markdown_to_html(markdown_file, output_file):
                     for j, para_line in enumerate(paragraph_lines):
                         if j > 0:
                             html_lines.append('<br/>')
+                        para_line = convert_bold_emphasis(para_line)  # Apply bold/emphasis formatting
                         html_lines.append(para_line)
                     
                     html_lines.append('</p>')
@@ -150,8 +154,31 @@ def convert_heading(line):
     # Extract the heading text (remove # symbols and leading/trailing spaces)
     heading_text = line[level:].strip()
     
+    # Apply bold/emphasis formatting to heading text
+    heading_text = convert_bold_emphasis(heading_text)
+    
     # Generate HTML heading tag
     return f"<h{level}>{heading_text}</h{level}>"
+
+
+def convert_bold_emphasis(text):
+    """Convert markdown bold and emphasis syntax to HTML.
+    
+    Args:
+        text (str): Text that may contain **bold** or __emphasis__ syntax
+        
+    Returns:
+        str: Text with HTML bold and emphasis tags
+    """
+    # Handle bold text **text**
+    
+    # Replace **text** with <b>text</b>
+    text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
+    
+    # Replace __text__ with <em>text</em>
+    text = re.sub(r'__(.*?)__', r'<em>\1</em>', text)
+    
+    return text
 
 
 if __name__ == "__main__":
