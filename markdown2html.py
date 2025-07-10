@@ -1,6 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
-Script to convert Markdown files to HTML
+Script to convert Markdown files to HTML.
+
+This module provides functionality to convert Markdown files to HTML format.
+It validates command line arguments and checks file existence before processing.
 """
 
 import sys
@@ -8,7 +11,12 @@ import os
 
 
 def main():
-    """Main function to handle markdown to html conversion"""
+    """Main function to handle markdown to html conversion.
+    
+    Validates command line arguments and processes the markdown file.
+    Exits with code 1 if arguments are invalid or file is missing.
+    Exits with code 0 if validation passes.
+    """
     
     # Check if the number of arguments is correct
     if len(sys.argv) < 3:
