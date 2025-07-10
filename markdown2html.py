@@ -9,6 +9,7 @@ It validates command line arguments and checks file existence before processing.
 import sys
 import os
 import re
+import hashlib
 
 
 def main():
@@ -165,17 +166,29 @@ def convert_bold_emphasis(text):
     """Convert markdown bold and emphasis syntax to HTML.
     
     Args:
-        text (str): Text that may contain **bold** or __emphasis__ syntax
+        text (str): Text that may contain **bold**, __emphasis__, [[MD5]], or ((remove c)) syntax
         
     Returns:
-        str: Text with HTML bold and emphasis tags
+        str: Text with HTML bold and emphasis tags, MD5 conversion, and character removal
     """
-    # Handle bold text **text**
+    # Handle MD5 conversion [[text]]
+    def md5_replace(match):
+        content = match.group(1)
+        return hashlib.md5(content.encode()).hexdigest()
     
-    # Replace **text** with <b>text</b>
+    text = re.sub(r'\[\[(.*?)\]\]', md5_replace, text)
+    
+    # Handle character removal ((text)) - remove all 'c' characters (case insensitive)
+    def remove_c(match):
+        content = match.group(1)
+        return re.sub(r'[cC]', '', content)
+    
+    text = re.sub(r'\(\((.*?)\)\)', remove_c, text)
+    
+    # Handle bold text **text**
     text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
     
-    # Replace __text__ with <em>text</em>
+    # Handle emphasis text __text__
     text = re.sub(r'__(.*?)__', r'<em>\1</em>', text)
     
     return text
