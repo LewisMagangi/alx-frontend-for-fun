@@ -79,6 +79,19 @@ def convert_markdown_to_html(markdown_file, output_file):
                 
                 # Close the unordered list
                 html_lines.append('</ul>')
+            # Process ordered list items
+            elif line.startswith('* '):
+                # Start of an ordered list
+                html_lines.append('<ol>')
+                
+                # Process all consecutive list items
+                while i < len(lines) and lines[i].rstrip('\n').startswith('* '):
+                    list_item = lines[i].rstrip('\n')[2:].strip()  # Remove '* ' and strip
+                    html_lines.append(f'<li>{list_item}</li>')
+                    i += 1
+                
+                # Close the ordered list
+                html_lines.append('</ol>')
             else:
                 # For now, just keep non-heading, non-list lines as is
                 # This can be expanded later for other markdown syntax
