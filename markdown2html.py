@@ -93,10 +93,32 @@ def convert_markdown_to_html(markdown_file, output_file):
                 # Close the ordered list
                 html_lines.append('</ol>')
             else:
-                # For now, just keep non-heading, non-list lines as is
-                # This can be expanded later for other markdown syntax
-                html_lines.append(line)
-                i += 1
+                # Handle paragraphs - collect consecutive non-empty lines
+                paragraph_lines = []
+                
+                # Collect all consecutive non-empty lines that don't start with special characters
+                while (i < len(lines) and 
+                       lines[i].rstrip('\n').strip() and 
+                       not lines[i].startswith('#') and 
+                       not lines[i].startswith('- ') and 
+                       not lines[i].startswith('* ')):
+                    paragraph_lines.append(lines[i].rstrip('\n'))
+                    i += 1
+                
+                # If we have paragraph content, wrap it in <p> tags
+                if paragraph_lines:
+                    html_lines.append('<p>')
+                    
+                    # Join lines with <br/> tags for line breaks within paragraphs
+                    for j, para_line in enumerate(paragraph_lines):
+                        if j > 0:
+                            html_lines.append('<br/>')
+                        html_lines.append(para_line)
+                    
+                    html_lines.append('</p>')
+                else:
+                    # If no paragraph content, just move to next line
+                    i += 1
         
         # Write HTML content to output file
         with open(output_file, 'w', encoding='utf-8') as html_file:
