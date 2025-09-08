@@ -46,29 +46,29 @@ sass input.scss output.css
 
 ### Basic SASS Features
 
-- [ ] **0. Always debugging!** (`0-debug_log.scss`)
+- [x] **0. Always debugging!** (`0-debug_log.scss`)
   - Write a SASS file that prints "Hello world" in the debug output
   - Uses `@debug` directive
 
-- [ ] **1. Color variable** (`1-color_variable.scss`)
+- [x] **1. Color variable** (`1-color_variable.scss`)
   - Assigns text color `#3D3D3D` to `body` and `p` tags using a SASS variable
   - Demonstrates basic variable usage
 
-- [ ] **2. Colors** (`2-color_variables.scss`)
+- [x] **2. Colors** (`2-color_variables.scss`)
   - Uses two SASS variables for text color `#3D3D3D` and background color `#6D6D6D`
   - Applies to `body`, `p`, and `h2` tags
 
 ### Nesting Features
 
-- [ ] **3. Nested tag** (`3-nested_tag.scss`)
+- [x] **3. Nested tag** (`3-nested_tag.scss`)
   - Sets margin and padding for `body` tags
   - Uses nested declarations for `p` tags inside `body`
 
-- [ ] **4. Nested class** (`4-nested_class.scss`)
+- [x] **4. Nested class** (`4-nested_class.scss`)
   - Applies text color to elements inside `body` tags
   - Uses nested `.red` class selector
 
-- [ ] **5. Nested child** (`5-nested_child.scss`)
+- [x] **5. Nested child** (`5-nested_child.scss`)
   - Uses direct child selector (`>`) for `.red` class
   - Demonstrates parent-child relationship in nesting
 
@@ -76,17 +76,17 @@ sass input.scss output.css
   - Implements hover states using nested pseudo-classes
   - Uses `&:hover` syntax for button elements
 
-- [ ] **7. Nested and nested again** (`7-nested_deeper.scss`)
+- [x] **7. Nested and nested again** (`7-nested_deeper.scss`)
   - Demonstrates deep nesting with multiple levels
   - Font sizes for `body`, `h1`, and `h1.smaller`
 
 ### Advanced Features
 
-- [ ] **8. Margin mixin** (`8-mixin_margins.scss`)
+- [x] **8. Margin mixin** (`8-mixin_margins.scss`)
   - Creates reusable mixin for left and right margins
   - Applies to `body` and `div` tags with different values
 
-- [ ] **9. Extended** (`9-extend_list.scss`)
+- [x] **9. Extended** (`9-extend_list.scss`)
   - Uses `@extend` to share styles between classes
   - Creates `.info`, `.success`, and `.warning` classes
 
@@ -100,7 +100,7 @@ sass input.scss output.css
   - Uses `@each` statement to iterate through list
   - Creates dynamic photo classes with background images
 
-- [ ] **12. Loop Headers** (`12-loop_header.scss`)
+- [x] **12. Loop Headers** (`12-loop_header.scss`)
   - Uses `@for` loop to create `h1` through `h5` with progressive font sizes
   - Demonstrates loop iteration from 1 to 5
 
@@ -110,7 +110,7 @@ sass input.scss output.css
 
 ### Responsive Design
 
-- [ ] **14. Media query #0** (`101-media_query.scss`)
+- [x] **14. Media query #0** (`101-media_query.scss`)
   - Basic media query implementation
   - Responsive font sizes for different screen widths
 
