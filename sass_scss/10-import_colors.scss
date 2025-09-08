@@ -1,0 +1,14 @@
+/* SASS file using import for colors */
+@use '10-colors' as colors;
+
+.red {
+  color: colors.$red;
+}
+
+.green {
+  color: colors.$green;
+}
+
+.blue {
+  color: colors.$blue;
+}

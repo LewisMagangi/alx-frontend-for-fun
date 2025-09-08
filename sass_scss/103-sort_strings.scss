@@ -1,0 +1,76 @@
+/* SASS file that sorts a list of strings */
+@use 'sass:list';
+@use 'sass:string';
+@use 'sass:math';
+@use '103-sort_list' as sort;
+
+// Function to sort a list
+@function sort-list($list) {
+  $sorted-list: ();
+  $list-length: list.length($list);
+
+  @for $i from 1 through $list-length {
+    $current-item: list.nth($list, $i);
+    $inserted: false;
+    $new-list: ();
+
+    @if list.length($sorted-list) == 0 {
+      $sorted-list: list.append($sorted-list, $current-item);
+    } @else {
+      @for $j from 1 through list.length($sorted-list) {
+        $sorted-item: list.nth($sorted-list, $j);
+
+        @if not $inserted and str-compare($current-item, $sorted-item) < 0 {
+          $new-list: list.append($new-list, $current-item);
+          $new-list: list.append($new-list, $sorted-item);
+          $inserted: true;
+        } @else {
+          $new-list: list.append($new-list, $sorted-item);
+        }
+      }
+
+      @if not $inserted {
+        $new-list: list.append($new-list, $current-item);
+      }
+
+      $sorted-list: $new-list;
+    }
+  }
+
+  @return $sorted-list;
+}
+
+// Helper function to compare strings
+@function str-compare($str1, $str2) {
+  $str1-length: string.length($str1);
+  $str2-length: string.length($str2);
+  $min-length: math.min($str1-length, $str2-length);
+
+  @for $i from 1 through $min-length {
+    $char1: string.slice($str1, $i, $i);
+    $char2: string.slice($str2, $i, $i);
+
+    @if $char1 != $char2 {
+      $chars: "abcdefghijklmnopqrstuvwxyz";
+      $pos1: string.index($chars, $char1);
+      $pos2: string.index($chars, $char2);
+
+      @if $pos1 < $pos2 {
+        @return -1;
+      } @else {
+        @return 1;
+      }
+    }
+  }
+
+  @if $str1-length < $str2-length {
+    @return -1;
+  } @else if $str1-length > $str2-length {
+    @return 1;
+  } @else {
+    @return 0;
+  }
+}
+
+$sorted-list: sort-list(sort.$list_to_sort);
+@debug $sorted-list;
