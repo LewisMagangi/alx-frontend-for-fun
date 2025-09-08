@@ -90,7 +90,7 @@ sass input.scss output.css
   - Uses `@extend` to share styles between classes
   - Creates `.info`, `.success`, and `.warning` classes
 
-- [ ] **10. Import colors** (`10-import_colors.scss` & `10-colors.scss`)
+- [x] **10. Import colors** (`10-import_colors.scss` & `10-colors.scss`)
   - Demonstrates `@import` functionality
   - Separates color variables into external file
 
