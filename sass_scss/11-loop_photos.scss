@@ -1,7 +1,7 @@
 /* SASS file using @each loop for photos */
-@use '11-photos' as photos;
+@import '11-photos';
 
-@each $name in photos.$list-names {
+@each $name in $list-names {
   .photo-#{$name} {
     background: image-url("photos/#{$name}.jpg") no-repeat;
   }
